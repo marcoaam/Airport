@@ -2,6 +2,10 @@ require_relative 'weather'
 
 class Airport
 
+	include Weather
+
+	attr_reader :planes, :capacity
+
 	DEFAULT_CAPACITY = 20
 
 	def initialize(options = {})
@@ -9,29 +13,28 @@ class Airport
 		@planes ||= []
 	end
 
-	def planes
-		@planes
-	end
-
-	def capacity
-		@capacity
-	end
-
 	def has_planes?
 		planes.any?
 	end
 
-	def receive(plane)
-		raise 'Airport full, keep flying' if full?
-		planes << plane
+	def release(plane)
+		planes.delete(plane)
 	end
 
-	def allow_to_land?
-		!stormy?
+	def receive(plane)
+		if full?
+			take_of_all_planes
+		else
+			planes << plane
+		end
 	end
 
 	def full?
-		planes.count == capacity
+		planes.count >= capacity
+	end
+
+	def take_of_all_planes
+			planes.each { |plane| plane.take_of_from(self) }
 	end
 
 end

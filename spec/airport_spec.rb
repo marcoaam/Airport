@@ -2,8 +2,9 @@ require 'airport'
 
 describe Airport do
 
-	 let(:airport) { Airport.new }
-	 let(:plane) { double :plane }
+	let(:airport)       { Airport.new    }
+	let(:plane)         { double :plane  }
+	let(:random_number) { double :number }
 
   it 'is has a no planes landed when created' do
   	expect(airport.planes). to eq []
@@ -42,9 +43,41 @@ describe Airport do
   	expect(airport).to be_full
   end
 
-  it 'doest allow the plane to land if it is full' do
-  	(airport.capacity).times { airport.planes << plane }
-		expect{airport.receive(plane)}.to raise_error(RuntimeError)
+  it 'doesnt allow the plane to land if it is full' do
+  	(airport.capacity).times { airport.receive(plane) }
+
+		expect(airport).to receive(:take_of_all_planes)
+		airport.receive(plane)
+  end
+
+  it 'makes all plane take off until airport is empty' do
+  	(airport.capacity).times { airport.receive(plane) }
+    (airport.capacity).times { expect(plane).to receive(:take_of_from).with(airport) }
+  	airport.take_of_all_planes
+  end
+
+  context 'Weather' do
+
+    it 'has a random number between 0 and 1' do
+  		expect(airport).to receive(:rand).with(6)
+  		airport.random_number
+  	end
+
+  	it 'returns a random number' do
+  		allow(airport).to receive(:rand).with(6).and_return(1)
+  		expect(airport.random_number).to eq 1
+  	end
+
+  	it 'generates random airport conditions stormy or not stormy' do
+  		allow(airport).to receive(:rand).with(6).and_return(1)
+  		expect(airport).to be_stormy
+  	end
+
+  	it 'generates random airport conditions stormy or not stormy' do
+  		allow(airport).to receive(:rand).with(6).and_return(3)
+  		expect(airport).not_to be_stormy
+  	end
+
   end
 
 end
