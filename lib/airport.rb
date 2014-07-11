@@ -2,8 +2,6 @@ require_relative 'weather'
 
 class Airport
 
-	include Weather
-
 	DEFAULT_CAPACITY = 20
 
 	def initialize(options = {})
@@ -28,16 +26,8 @@ class Airport
 		planes << plane
 	end
 
-	def release(plane)
-		planes.delete(plane)
-	end
-
-	def allow_to_take_of?
-		conditions == 'sunny'
-	end
-
 	def allow_to_land?
-		conditions == 'sunny'
+		!stormy?
 	end
 
 	def full?

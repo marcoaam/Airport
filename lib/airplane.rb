@@ -1,6 +1,10 @@
+require_relative 'weather'
+
 class Airplane
 
-	def initialize(status = 'flying')
+	include Weather
+
+	def initialize(status = :flying)
 		@status = status
 	end
 
@@ -9,21 +13,21 @@ class Airplane
 	end
 
 	def to_land
-		@status = 'landed'
+		@status = :landed
 		self
 	end
 
 	def to_fly
-		@status = 'flying'
+		@status = :flying
 		self
 	end
 
 	def take_of_from(airport)
-		airport.release(to_fly) if airport.allow_to_take_of?
+		airport.release(to_fly) unless stormy?
 	end
 
 	def land_to(airport)
-		airport.receive(to_land) if airport.allow_to_land?
+		airport.receive(to_land) unless stormy?
 	end
 
 end

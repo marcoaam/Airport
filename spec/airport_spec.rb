@@ -1,9 +1,6 @@
 require 'airport'
-require_relative 'weather_spec'
 
 describe Airport do
-
-	it_behaves_like 'a weather tracker'
 
 	 let(:airport) { Airport.new }
 	 let(:plane) { double :plane }
@@ -34,26 +31,6 @@ describe Airport do
   	airport.receive(plane)
   	airport.release(plane)
   	expect(airport).not_to have_planes
-  end
-
-  it 'can allow planes to take of if weather is sunny' do
-  	expect(airport).to receive(:conditions).and_return 'sunny'
-  	expect(airport.allow_to_take_of?).to eq true
-  end
-
-  it 'can not allow planes to take of if weather is stormy' do
-  	expect(airport).to receive(:conditions).and_return 'stormy'
-  	expect(airport.allow_to_take_of?).to eq false
-  end
-
-   it 'can allow planes to land of if weather is sunny' do
-  	expect(airport).to receive(:conditions).and_return 'sunny'
-  	expect(airport.allow_to_land?).to eq true
-  end
-
-  it 'can not allow planes to land if weather is stormy' do
-  	expect(airport).to receive(:conditions).and_return 'stormy'
-  	expect(airport.allow_to_land?).to eq false
   end
 
   it 'is not full without any planes' do

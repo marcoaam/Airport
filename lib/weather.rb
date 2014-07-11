@@ -1,11 +1,11 @@
 module Weather
 
-	def states
-		['sunny', 'stormy']
+	def stormy?
+		random_number == 1
 	end
 
-	def conditions
-		states[rand(2)]
+	def random_number
+		rand(2)
 	end
 
 end
