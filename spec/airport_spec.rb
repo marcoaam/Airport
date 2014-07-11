@@ -68,12 +68,12 @@ describe Airport do
   		expect(airport.random_number).to eq 1
   	end
 
-  	it 'generates random airport conditions stormy or not stormy' do
+  	it 'generates random airport conditions stormy' do
   		allow(airport).to receive(:rand).with(6).and_return(1)
   		expect(airport).to be_stormy
   	end
 
-  	it 'generates random airport conditions stormy or not stormy' do
+  	it 'generates random airport conditions not stormy' do
   		allow(airport).to receive(:rand).with(6).and_return(3)
   		expect(airport).not_to be_stormy
   	end
