@@ -35,7 +35,7 @@ class Airport
 	end
 
 	def take_of_all_planes
-			planes.each { |plane| plane.take_of_from(self) }
+		planes.each { |plane| plane.take_of_from(self) }
 	end
 
 end
