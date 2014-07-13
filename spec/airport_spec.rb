@@ -43,14 +43,15 @@ describe Airport do
   	expect(airport).to be_full
   end
 
-  it 'doesnt allow the plane to land and makes all planes take of if it is full' do
+  it 'doesnt allow the plane to land and calls take of for all planes if it is full (raises error) ' do
   	(airport.capacity).times { airport.receive(plane) }
 
 		expect(airport).to receive(:take_of_all_planes)
-		airport.receive(plane)
+		expect(airport).to receive(:puts).with('Airport full, All planes trying to take of of weather is not stormy')
+    airport.receive(plane)
   end
 
-  it 'makes all plane take off if the weather is not stormy' do
+  it 'Tries to make all planes take off if the weather is not stormy' do
     airport.receive(plane)
     expect(plane).to receive(:take_of_from).with(airport)
   	airport.take_of_all_planes

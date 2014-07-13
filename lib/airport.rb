@@ -24,6 +24,7 @@ class Airport
 	def receive(plane)
 		if full?
 			take_of_all_planes
+			puts 'Airport full, All planes trying to take of of weather is not stormy'
 		else
 			planes << plane
 		end

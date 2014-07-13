@@ -19,11 +19,13 @@ class Airplane
 	end
 
 	def take_of_from(airport)
-		airport.release(to_fly) unless airport.stormy?
+		return puts "It is stormy, you can not take of" if airport.stormy?
+		airport.release(to_fly)
 	end
 
 	def land_to(airport)
-		airport.receive(to_land) unless airport.stormy?
+		return puts "It is stormy, you can not land" if airport.stormy?
+		airport.receive(to_land) 
 	end
 
 end

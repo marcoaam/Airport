@@ -35,11 +35,16 @@ describe Airplane do
 		expect(landed_plane.status).to eq :flying
 	end
 
+	it 'Outputs a error if the weather is stormy at take of' do
+		airport = double :airport, stormy?: true
+		expect(plane).to receive(:puts).with("It is stormy, you can not take of")
+		plane.take_of_from(airport)
+	end
+
 	it 'it can not take of if the weather doesnt allow to' do
-		allow(airport).to receive(:stormy?).and_return(true)
-
-		landed_plane.take_of_from(airport)
-
+		airport = double :airport, stormy?: true
+		allow(plane).to receive(:puts).with("It is stormy, you can not take of")
+		plane.take_of_from(airport)
 		expect(landed_plane.status).to eq :landed
 	end
 
@@ -49,9 +54,15 @@ describe Airplane do
 		plane.land_to(airport)
 	end
 
+	it 'Outputs error if the weather is stormy at landing' do
+		airport = double :airport, stormy?: true
+		expect(plane).to receive(:puts).with("It is stormy, you can not land")
+		plane.land_to(airport)
+	end
+
 	it 'can not land if the weather doesnt allow to' do
-		allow(airport).to receive(:receive).with(plane)
-		expect(airport).to receive(:stormy?).and_return(true)
+		airport = double :airport, stormy?: true
+		allow(plane).to receive(:puts).with("It is stormy, you can not land")
 		plane.land_to(airport)
 		expect(plane.status).to eq :flying
 	end
