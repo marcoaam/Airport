@@ -3,7 +3,7 @@ require 'airport'
 describe Airport do
 
 	let(:airport)       { Airport.new    }
-	let(:plane)         { double :plane, to_fly: true  }
+	let(:plane)         { double :plane  }
 	let(:random_number) { double :number }
 
   it 'is has a no planes landed when created' do
@@ -43,7 +43,7 @@ describe Airport do
   	expect(airport).to be_full
   end
 
-  it 'doesnt allow the plane to land and calls take of for all planes if it is full (raises error) ' do
+  it 'doesnt allow the plane to land and calls take of for all planes if it is full ' do
   	(airport.capacity).times { airport.receive(plane) }
 
 		expect(airport).to receive(:take_of_all_planes)
