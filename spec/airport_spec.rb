@@ -7,7 +7,7 @@ describe Airport do
 	let(:random_number) { double :number }
 
   it 'is has a no planes landed when created' do
-  	expect(airport.planes). to eq []
+  	expect(airport.hangar). to eq []
   end
 
   it 'has a default capacity of 20 when created' do
@@ -19,13 +19,13 @@ describe Airport do
   	expect(custom_airport.capacity).to eq 30
   end
 
-  it 'Knows if it have planes' do
+  it 'Knows if it has planes' do
   	expect(airport).not_to have_planes
   end
 
   it 'can receive airplanes that are landing' do
  		airport.receive(plane)
- 		expect(airport.planes).to eq [plane]
+ 		expect(airport.hangar).to eq [plane]
   end
 
   it 'can release planes that want to take of' do
@@ -39,7 +39,7 @@ describe Airport do
   end
 
   it 'is full when a number of planes has landed' do
-  	(airport.capacity).times { airport.planes << plane }
+  	(airport.capacity).times { airport.hangar << plane }
   	expect(airport).to be_full
   end
 
