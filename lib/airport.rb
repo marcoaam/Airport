@@ -4,21 +4,21 @@ class Airport
 
 	include Weather
 
-	attr_reader :planes, :capacity
+	attr_reader :hangar, :capacity
 
 	DEFAULT_CAPACITY = 20
 
 	def initialize(options = {})
 		@capacity = options.fetch(:capacity, DEFAULT_CAPACITY)
-		@planes ||= []
+		@hangar ||= []
 	end
 
 	def has_planes?
-		planes.any?
+		hangar.any?
 	end
 
 	def release(plane)
-		planes.delete(plane)
+		hangar.delete(plane)
 	end
 
 	def receive(plane)
@@ -26,16 +26,16 @@ class Airport
 			take_of_all_planes
 			puts 'Airport full, All planes trying to take of of weather is not stormy'
 		else
-			planes << plane
+			hangar << plane
 		end
 	end
 
 	def full?
-		planes.count >= capacity
+		hangar.count >= capacity
 	end
 
 	def take_of_all_planes
-		planes.each { |plane| plane.take_of_from(self) }
+		hangar.each { |plane| plane.take_of_from(self) }
 	end
 
 end

@@ -1,31 +1,29 @@
 class Airplane
 
+	attr_reader :status
+
 	def initialize(status = :flying)
 		@status = status
 	end
 
-	def status
-		@status
-	end
-
-	def to_land
+	def land!
 		@status = :landed
 		self
 	end
 
-	def to_fly
+	def fly!
 		@status = :flying
 		self
 	end
 
 	def take_of_from(airport)
-		return puts "It is stormy, you can not take of" if airport.stormy?
-		airport.release(to_fly)
+		raise "It is stormy, you can not take of" if airport.stormy?
+		airport.release(fly!)
 	end
 
 	def land_to(airport)
-		return puts "It is stormy, you can not land" if airport.stormy?
-		airport.receive(to_land) 
+		raise "It is stormy, you can not land" if airport.stormy?
+		airport.receive(land!) 
 	end
 
 end
