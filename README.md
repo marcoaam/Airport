@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/marcoaam/Airport/badges/gpa.svg)](https://codeclimate.com/github/marcoaam/Airport) [![Test Coverage](https://codeclimate.com/github/marcoaam/Airport/badges/coverage.svg)](https://codeclimate.com/github/marcoaam/Airport)
+
 Airport Test
 =================
 
